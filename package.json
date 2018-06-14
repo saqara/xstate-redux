@@ -1,0 +1,80 @@
+{
+  "name": "xstate-redux",
+  "version": "0.4.4",
+  "description": "Redux middleware/reducer to use xstate with redux",
+  "main": "lib/xstate-redux.js",
+  "module": "es/xstate-redux.js",
+  "files": [
+    "dist",
+    "lib",
+    "es",
+    "src"
+  ],
+  "scripts": {
+    "build:commonjs": "cross-env NODE_ENV=cjs rollup -c -o lib/xstate-redux.js",
+    "build:es": "cross-env BABEL_ENV=es NODE_ENV=es rollup -c -o es/xstate-redux.js",
+    "build:umd": "cross-env BABEL_ENV=es NODE_ENV=development rollup -c -o dist/xstate-redux.js",
+    "build:umd:min": "cross-env BABEL_ENV=es NODE_ENV=production rollup -c -o dist/xstate-redux.min.js",
+    "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
+    "clean": "rimraf lib dist es",
+    "prepare": "npm run clean && npm test && npm run build",
+    "test": "cross-env BABEL_ENV=commonjs jest",
+    "test:watch": "npm test -- --watch"
+  },
+  "keywords": [
+    "fsm",
+    "redux",
+    "stateCharts",
+    "xstate"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "github.com/go-aos/xstate-redux"
+  },
+  "authors": [
+    "Stephane Barale <stephane.barale@go-aos.io> (https://github.com/C0r3y8)",
+    "AOS"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/go-aos/xstate-redux/issues"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "cross-env": "^5.1.4",
+    "eslint": "^4.17.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "jest": "^22.4.2",
+    "jest-runner-eslint": "^0.4.0",
+    "rimraf": "^2.6.2",
+    "rollup": "^0.56.0",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-node-resolve": "^3.0.3",
+    "rollup-plugin-replace": "^2.0.0",
+    "rollup-plugin-uglify": "^3.0.0"
+  },
+  "peerDependencies": {
+    "redux": "^3.7.2 || ^4.0.0",
+    "xstate": "^3.1.0"
+  },
+  "npmName": "xstate-redux",
+  "npmFileMap": [
+    {
+      "basePath": "/dist/",
+      "files": [
+        "*.js"
+      ]
+    }
+  ]
+}

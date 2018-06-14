@@ -1,0 +1,38 @@
+{
+  "env": {
+    "browser": true,
+    "jest": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "standard"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "classes": true
+    },
+    "ecmaVersion": 6
+  },
+  "plugins": ["standard"],
+  "root": true,
+  "rules": {
+    "class-methods-use-this": 0,
+    "max-len": ["error", {
+      "code": 100,
+      "ignoreTemplateLiterals": true,
+      "ignoreStrings": true,
+      "ignoreRegExpLiterals": true
+    }],
+    "import/no-absolute-path": 0,
+    "import/order": [2, {
+      "groups": [ "builtin", "external", "internal", "parent", "sibling", "index" ],
+      "newlines-between": "always"
+    }],
+    "no-underscore-dangle": 0,
+    "no-console": 2
+  }
+}
