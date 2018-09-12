@@ -1,7 +1,9 @@
 {
   "name": "xstate-redux",
-  "version": "0.4.4",
+  "version": "0.6.0",
   "description": "Redux middleware/reducer to use xstate with redux",
+  "repository": "github:go-aos/xstate-redux",
+  "bugs": "https://github.com/go-aos/xstate-redux/issues",
   "main": "lib/xstate-redux.js",
   "module": "es/xstate-redux.js",
   "files": [
@@ -27,18 +29,11 @@
     "stateCharts",
     "xstate"
   ],
-  "repository": {
-    "type": "git",
-    "url": "github.com/go-aos/xstate-redux"
-  },
   "authors": [
     "Stephane Barale <stephane.barale@go-aos.io> (https://github.com/C0r3y8)",
     "AOS"
   ],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/go-aos/xstate-redux/issues"
-  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
@@ -62,7 +57,9 @@
     "rollup-plugin-commonjs": "^9.1.0",
     "rollup-plugin-node-resolve": "^3.0.3",
     "rollup-plugin-replace": "^2.0.0",
-    "rollup-plugin-uglify": "^3.0.0"
+    "rollup-plugin-uglify": "^3.0.0",
+    "redux": "^4.0.0",
+    "xstate": "^3.3.3"
   },
   "peerDependencies": {
     "redux": "^3.7.2 || ^4.0.0",
