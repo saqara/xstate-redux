@@ -1,9 +1,15 @@
-import createReduxXstateMiddleware from './middleware'
-import createReduxXstateReducer from './reducer'
-import { isInState } from './utils'
+import {
+  resetMachineStateAction,
+  setMachineStateAction,
+  XSTATE_RESET_MACHINE_STATE,
+  XSTATE_SET_MACHINE_STATE
+} from './action'
+import XstateRedux from './xstate_redux'
 
 export {
-  createReduxXstateMiddleware,
-  createReduxXstateReducer,
-  isInState
+  resetMachineStateAction,
+  setMachineStateAction,
+  XSTATE_RESET_MACHINE_STATE,
+  XSTATE_SET_MACHINE_STATE,
+  XstateRedux
 }
