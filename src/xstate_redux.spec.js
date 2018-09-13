@@ -50,6 +50,14 @@ describe('XstateRedux', () => {
         expect(dispatch.mock.calls[0][0]).toEqual(yellowAction)
         dispatch.mockClear()
       })
+
+      it('should not dispatch set state for equal state', () => {
+        const unknownAction = { type: 'UNKNOWN' }
+        middleware(store)(dispatch)(unknownAction)
+        expect(dispatch.mock.calls.length).toBe(1)
+        expect(dispatch.mock.calls[0][0]).toEqual(unknownAction)
+        dispatch.mockClear()
+      })
     })
 
     describe('with custom getState option', () => {
@@ -74,6 +82,14 @@ describe('XstateRedux', () => {
         expect(dispatch.mock.calls[0][0]).toEqual(yellowAction)
         dispatch.mockClear()
       })
+
+      it('should not dispatch set state for equal state', () => {
+        const unknownAction = { type: 'UNKNOWN' }
+        middleware(store)(dispatch)(unknownAction)
+        expect(dispatch.mock.calls.length).toBe(1)
+        expect(dispatch.mock.calls[0][0]).toEqual(unknownAction)
+        dispatch.mockClear()
+      })
     })
 
     describe('set machine', () => {
@@ -92,7 +108,71 @@ describe('XstateRedux', () => {
         expect(dispatch.mock.calls[0][0]).toEqual(action)
         expect(dispatch.mock.calls[1][0]).toEqual(setMachineStateAction('blue'))
         dispatch.mockClear()
+      })
+
+      it('should not dispatch set state for equal state', () => {
+        const unknownAction = { type: 'UNKNOWN' }
+        middleware(store)(dispatch)(unknownAction)
+        expect(dispatch.mock.calls.length).toBe(1)
+        expect(dispatch.mock.calls[0][0]).toEqual(unknownAction)
+        dispatch.mockClear()
         reduxMachine.setMachine(machine)
+      })
+    })
+
+    describe('complex machine', () => {
+      const magentaEnterAction = { type: 'MAGENTA_ENTER_ACTION' }
+      const magentaExitAction = { type: 'MAGENTA_EXIT_ACTION' }
+      const pinkEnterAction = { type: 'PINK_ENTER_ACTION' }
+      const pinkExitAction = { type: 'PINK_EXIT_ACTION' }
+      const complexMachine = new XstateRedux(Machine({
+        initial: 'green',
+        states: {
+          green: {
+            initial: 'magenta',
+            on: { TIMER: 'yellow' },
+            states: {
+              magenta: {
+                on: { TIMER2: 'pink' },
+                onEntry: magentaEnterAction,
+                onExit: magentaExitAction
+              },
+              pink: {
+                on: { TIMER2: 'magenta' },
+                onEntry: pinkEnterAction,
+                onExit: pinkExitAction
+              }
+            }
+          },
+          yellow: { on: { TIMER: 'green' } }
+        }
+      }))
+      const middleware = complexMachine.createMiddleware()
+
+      it('should not dispatch set state for equal state', () => {
+        getState.mockReturnValue({ xstate: { green: 'magenta' } })
+        const unknownAction = { type: 'UNKNOWN' }
+        middleware(store)(dispatch)(unknownAction)
+        expect(dispatch.mock.calls.length).toBe(1)
+        expect(dispatch.mock.calls[0][0]).toEqual(unknownAction)
+        dispatch.mockClear()
+      })
+
+      it('should dispatch onEnter pink and onExit magenta action', () => {
+        middleware(store)(dispatch)({ type: 'TIMER2' })
+        expect(dispatch.mock.calls.length).toBe(4)
+        expect(dispatch.mock.calls[2][0]).toEqual(magentaExitAction)
+        expect(dispatch.mock.calls[3][0]).toEqual(pinkEnterAction)
+        dispatch.mockClear()
+      })
+
+      it('should dispatch onExit pink and onEnter magenta action', () => {
+        getState.mockReturnValue({ xstate: { green: 'pink' } })
+        middleware(store)(dispatch)({ type: 'TIMER2' })
+        expect(dispatch.mock.calls.length).toBe(4)
+        expect(dispatch.mock.calls[2][0]).toEqual(pinkExitAction)
+        expect(dispatch.mock.calls[3][0]).toEqual(magentaEnterAction)
+        dispatch.mockClear()
       })
     })
   })

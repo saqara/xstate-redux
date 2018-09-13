@@ -1,3 +1,4 @@
+import { isEqual } from './utils'
 import {
   setMachineStateAction,
   XSTATE_RESET_MACHINE_STATE,
@@ -53,7 +54,8 @@ export default class XstateRedux {
         action,
         reduxState
       ) || {}
-      if (nextMachineState.value) {
+      if (nextMachineState.value &&
+        !isEqual(machineState, nextMachineState.value)) {
         store.dispatch(setMachineStateAction(nextMachineState.value))
       }
       if (nextMachineState.actions && Array.isArray(nextMachineState.actions)) {
