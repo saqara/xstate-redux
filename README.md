@@ -22,7 +22,7 @@ import {
   XSTATE_RESET_MACHINE_STATE,
   XSTATE_SET_MACHINE_STATE,
   XstateRedux
-} from 'redux-hmr-registry'
+} from 'xstate-redux'
 ```
 
 ## Use with redux
