@@ -1,6 +1,6 @@
 {
   "name": "xstate-redux",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "Redux middleware/reducer to use xstate with redux",
   "repository": "github:go-aos/xstate-redux",
   "bugs": "https://github.com/go-aos/xstate-redux/issues",
