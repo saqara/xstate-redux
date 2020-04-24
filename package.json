@@ -38,6 +38,7 @@
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-jest": "^23.8.2",
+    "husky": "^4.2.5",
     "jest": "^25.4.0",
     "prettier": "^2.0.5",
     "redux": "^4.0.5",
@@ -50,5 +51,11 @@
   "peerDependencies": {
     "redux": "^3.7.2 || ^4.0.0",
     "xstate": "^3.1.0 || ^4.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run test",
+      "pre-push": "npm run lint && npm run test"
+    }
   }
 }
