@@ -1,10 +1,20 @@
 module.exports = {
-  projects: [
-    { displayName: 'Test' },
-    {
-      displayName: 'Lint',
-      runner: 'jest-runner-eslint',
-      testMatch: ['<rootDir>/**/*?(.spec).js']
-    }
-  ]
-}
+  testEnvironment: 'node',
+  transform: {
+    "^.+\\.tsx?$": "ts-jest"
+  },
+  moduleFileExtensions: [
+    "ts",
+    "tsx",
+    "js",
+    "jsx",
+    "json",
+    "node",
+  ],
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(ts|js)x?$',
+  coverageDirectory: 'coverage',
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx,js,jsx}',
+    '!src/**/*.d.ts',
+  ],
+};
